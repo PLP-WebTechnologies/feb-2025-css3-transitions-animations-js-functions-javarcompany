@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Animation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background-color: #3498db;
+            border-radius: 20px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .animate {
+            animation: rotate 3s infinite linear;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Interactive Animation with JavaScript and CSS</h1>
+    <div id="box" class="box"></div>
+    <button id="toggleButton">Start Animation</button>
+
+    <script>
+        // Get elements
+        const box = document.getElementById('box');
+        const toggleButton = document.getElementById('toggleButton');
+
+        // Check localStorage to see if animation was already triggered
+        if (localStorage.getItem('animationTriggered') === 'true') {
+            box.classList.add('animate'); // Start animation if stored in localStorage
+            toggleButton.textContent = "Stop Animation"; // Change button text
+        }
+
+        // Add event listener to the button
+        toggleButton.addEventListener('click', () => {
+            // Toggle animation
+            if (box.classList.contains('animate')) {
+                box.classList.remove('animate');
+                toggleButton.textContent = "Start Animation";
+                localStorage.setItem('animationTriggered', 'false'); // Save state to localStorage
+            } else {
+                box.classList.add('animate');
+                toggleButton.textContent = "Stop Animation";
+                localStorage.setItem('animationTriggered', 'true'); // Save state to localStorage
+            }
+        });
+    </script>
+
+</body>
+</html>
